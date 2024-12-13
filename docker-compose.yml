@@ -1,0 +1,39 @@
+services:
+  database:
+    image: postgres:latest
+    container_name: database
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432" # Maps the database service to localhost:5432
+    volumes:
+      - database-data:/var/lib/postgresql/data # Persists database data
+
+  backend:
+    build:
+      context: ./backend #builds the backend using the Dockerfile in ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/postgres
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8080:8080" # Maps backend service to localhost:8080
+    depends_on:
+      - database # Ensures the database starts before the backend
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:80" # Maps frontend service to localhost:80
+    depends_on:
+      - backend # Ensures backend is started before the frontend
+
+volumes:
+  database-data:
