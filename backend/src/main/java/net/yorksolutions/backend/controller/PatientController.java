@@ -40,7 +40,7 @@ public class PatientController {
 
     @PostMapping
     public Patient addPatient(@RequestBody Patient patient) {
-        System.out.println("request received: " + patient);
+//        System.out.println("request received: " + patient);
         return patientService.addPatient(patient);
     }
 

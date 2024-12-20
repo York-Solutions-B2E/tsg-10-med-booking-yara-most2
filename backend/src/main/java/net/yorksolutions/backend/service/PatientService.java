@@ -45,6 +45,7 @@ public class PatientService {
         return patientRepository.findPatientsByFirstNameAndLastNameAndDateOfBirth(firstName, lastName, dateOfBirth);
     }
 
+    // this was an old method that i forgot to delete
     public Optional<Patient> findByEmail(String email) {
         return Optional.ofNullable(this.patientRepository.findPatientByEmail(email));
     }

@@ -35,4 +35,18 @@ export default [
       ],
     },
   },
+  {
+    "overrides": [
+      {
+        "files": [
+          "**/*.spec.js",
+          "**/*.spec.jsx"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  }
 ]
+

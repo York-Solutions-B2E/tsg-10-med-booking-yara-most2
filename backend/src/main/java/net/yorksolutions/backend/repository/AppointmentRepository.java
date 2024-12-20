@@ -16,9 +16,12 @@ public interface AppointmentRepository  extends JpaRepository<Appointment, Long>
         FROM Appointment a
         WHERE a.patient.id = :patientId
           AND a.doctor.id = :doctorId
-          AND DATE(a.appointmentDateTime) = :appointmentDate
+          AND CAST(a.appointmentDateTime AS DATE) = :appointmentDate
           AND a.confirmed = true
           AND (:appointmentId IS NULL OR a.id <> :appointmentId)
     """)
     List<Appointment> findByPatientIdAndDoctorIdOnDate(Long patientId, Long doctorId, LocalDate appointmentDate, Long appointmentId);
 }
+//AND CAST(a.appointmentDateTime AS DATE) = :appointmentDate
+
+// AND DATE(a.appointmentDateTime) = :appointmentDate
